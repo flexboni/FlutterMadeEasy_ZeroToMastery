@@ -1,10 +1,14 @@
 import 'package:advicer/1_domain/entities/advice_entity.dart';
+import 'package:advicer/1_domain/failures/failures.dart';
+import 'package:dartz/dartz.dart';
 
 class AdviceUseCases {
-  Future<AdviceEntity> getAdvice() async {
+  Future<Either<Failure, AdviceEntity>> getAdvice() async {
     // call a repository to get data (failure or data)
     // proceed with business logic (manipulate the data)
     await Future.delayed(const Duration(seconds: 3), () {});
-    return const AdviceEntity(advice: 'fake advice to test', id: 1);
+    // Call to repo went good: -> return data not failure
+    return const Right(AdviceEntity(advice: 'fake advice to test!!', id: 1));
+    // Call to repo went bad or logic had an error -> return failure
   }
 }
